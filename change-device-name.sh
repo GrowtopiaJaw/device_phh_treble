@@ -15,6 +15,11 @@ VENDOR_BRAND="$(grep ro.vendor.product.brand /vendor/build.prop | cut -d'=' -f 2
 VENDOR_MODEL="$(grep ro.vendor.product.model /vendor/build.prop | cut -d'=' -f 2)"
 VENDOR_NAME="$(grep ro.vendor.product.name /vendor/build.prop | cut -d'=' -f 2)"
 VENDOR_DEVICE="$(grep ro.vendor.product.device /vendor/build.prop | cut -d'=' -f 2)"
+TYPETXT=user
+TAGSTXT=release-keys
+SELINUXTXT=0
+DEBUGGABLETXT=0
+SECURETXT=1
 echo "Product brand: ${VENDOR_BRAND}"
 echo "Product model: ${VENDOR_MODEL}"
 echo "Product name: ${VENDOR_NAME}"
@@ -36,6 +41,11 @@ modify_on_match() {
         -e "s/ro.lineage.device=.*/ro.lineage.device=${device}/" \
         -e "s/ro.aicp.device=.*/ro.aicp.device=${device}/" \
         -e "s~ro.build.fingerprint=.*~ro.build.fingerprint=${VENDOR_FINGERPRINT}~" \
+        -e "s/ro.build.type=.*/ro.build.type=${TYPETXT}/" \
+        -e "s/ro.build.tags=.*/ro.build.tags=${TAGSTXT}/" \
+        -e "s/ro.build.selinux=.*/ro.build.selinux=${SELINUXTXT}/" \
+        -e "s/ro.debuggable=.*/ro.debuggable=${DEBUGGABLETXT}/" \
+        -e "s/ro.secure=.*/ro.secure=${SECURETXT}/" \
         /system/build.prop
 
         echo "Device name changed! Match: $2 $3 $4 $5"
@@ -48,6 +58,11 @@ modify_on_match() {
         -e "s/ro.lineage.device=.*/ro.lineage.device=${device}/" \
         -e "s/ro.aicp.device=.*/ro.aicp.device=${device}/" \
         -e "s~ro.build.fingerprint=.*~ro.build.fingerprint=${VENDOR_FINGERPRINT}~" \
+        -e "s/ro.build.type=.*/ro.build.type=${TYPETXT}/" \
+        -e "s/ro.build.tags=.*/ro.build.tags=${TAGSTXT}/" \
+        -e "s/ro.build.selinux=.*/ro.build.selinux=${SELINUXTXT}/" \
+        -e "s/ro.debuggable=.*/ro.debuggable=${DEBUGGABLETXT}/" \
+        -e "s/ro.secure=.*/ro.secure=${SECURETXT}/" \
         /system/build.prop
 
         echo "Device name changed! Match: $2 $3 $4 $5"
@@ -62,6 +77,8 @@ fi
 
 # Add devices here, e.g.
 # modify_on_match <pattern> <brand> <model> <name> <device>
+#
+# or you could just leave it as is. This script will try to read existing props from vendor/build.prop (and of course, if it exists)
 #
 # example:
 # modify_on_match "FIH/SAT_.*" "SHARP" "AQUOS S2" "SS2" "SS2"
