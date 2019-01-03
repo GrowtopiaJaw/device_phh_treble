@@ -342,6 +342,12 @@ if getprop ro.vendor.build.fingerprint | grep -qE '^xiaomi/(daisy|wayne)/(daisy|
     setprop audio.camerasound.force true
 fi
 
+if getprop ro.hardware |grep -q samsungexynos7870;then
+	if [ "$vndk" -le 27 ];then
+		setprop persist.sys.phh.sdk_override /vendor/bin/hw/rild=27
+	fi
+fi
+
 mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
 
 for f in /vendor/lib{,64}/hw/com.qti.chi.override.so;do
