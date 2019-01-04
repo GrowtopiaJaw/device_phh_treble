@@ -342,6 +342,12 @@ if getprop ro.vendor.build.fingerprint | grep -qE '^xiaomi/(daisy|wayne)/(daisy|
     setprop audio.camerasound.force true
 fi
 
+if getprop ro.vendor.build.fingerprint |grep -iq -E -e 'huawei|honor' || getprop persist.sys.overlay.huawei |grep -iq -E -e 'true' ; then
+	mount -o bind /product/etc/nfc/libnfc-nxp_*_*.conf /system/etc/libnfc-nxp.conf
+	mount -o bind /product/etc/nfc/libnfc_brcm_*_*.conf /system/etc/libnfc-brcm.conf
+	mount -o bind /system/phh/libnfc-nci-huawei.conf /system/etc/libnfc-nci.conf
+fi
+
 mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
 
 for f in /vendor/lib{,64}/hw/com.qti.chi.override.so;do
