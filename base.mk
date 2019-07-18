@@ -76,6 +76,10 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/files/samsung-gpio_keys.kl:system/phh/samsung-gpio_keys.kl \
 	device/phh/treble/files/samsung-sec_touchscreen.kl:system/phh/samsung-sec_touchscreen.kl
 
+#MTK incoming SMS fix
+PRODUCT_PACKAGES += \
+	mtk-sms-fwk-ready
+
 PRODUCT_COPY_FILES += \
 	device/phh/treble/device.rc:system/etc/init/device.rc \
 	device/phh/treble/change-device-name.sh:system/bin/change-device-name.sh
