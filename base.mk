@@ -83,3 +83,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	device/phh/treble/device.rc:system/etc/init/device.rc \
 	device/phh/treble/change-device-name.sh:system/bin/change-device-name.sh
+
+PRODUCT_PACKAGES += \
+	Stk
